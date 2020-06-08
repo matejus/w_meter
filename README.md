@@ -29,4 +29,4 @@ I had used 2 current sensors on L and N wire (named COIL_1 and COIL_2). the solu
 If you want to use different ADC to measuring change the definitions at the begining of application.c file. You can change measuring period (5 sec by defaut) by modification of MEASURING_PERIOD constant.
 
 > [!WARNING]
-> You are playing with voltage of 230 V which is life threating. Be carefoul, keep everything isolated and dont touch the wires when plug is in socket!
+> You are playing with voltage of 230 V which is life threating. Be careful, keep everything isolated and dont touch the wires when plug is in socket!
