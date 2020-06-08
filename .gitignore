@@ -1,5 +1,8 @@
 obj/
 out/
+sdk/
+.vs/
+.vscode/
 .gitmodules
 .DS_Store
 firmware.bin

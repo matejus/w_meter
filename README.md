@@ -1,26 +1,26 @@
-<a href="https://www.hardwario.com/"><img src="https://www.hardwario.com/ci/assets/hw-logo.svg" width="200" alt="HARDWARIO Logo" align="right"></a>
+# Watt Meter
 
-# Firmware Skeleton for HARDWARIO Core Module
+Example how to measure power consumption using inductive current sensor.
 
-[![Travis](https://img.shields.io/travis/bigclownlabs/bcf-skeleton/master.svg)](https://travis-ci.org/bigclownlabs/bcf-skeleton)
-[![Release](https://img.shields.io/github/release/bigclownlabs/bcf-skeleton.svg)](https://github.com/bigclownlabs/bcf-skeleton/releases)
-[![License](https://img.shields.io/github/license/bigclownlabs/bcf-skeleton.svg)](https://github.com/bigclownlabs/bcf-skeleton/blob/master/LICENSE)
-[![Twitter](https://img.shields.io/twitter/follow/hardwario_en.svg?style=social&label=Follow)](https://twitter.com/hardwario_en)
+Visit [Hackster.io](https://www.hackster.io/matejus/wattmetter-with-bigclown-a0ec12) to read the story.
 
-This repository contains firmware skeleton for [Core Module](https://shop.bigclown.com/core-module).
+The consumed power is measured using inductive currency sensor. The measured value is read by A/D channel as voltage on resitor (R = 340ohm) and have to be recalculated back to current. Because of the sensor is measuring AC currency the input value have to be measured more times to get peak current (5 periods of 50Hz - MEASURING_TIME = 100ms).
 
-If you want to get more information about Core Module, firmware and how to work with it, please follow this link:
+The peak current have to be recalculated to effective current. Then using the sensor ratio (RATIO = 1000) and electricity voltage (U = 230V) is possible to calculate the power consumption.
 
-**https://developers.hardwario.com/firmware/basic-overview/**
+`P = U * I`
 
-User's application code (business logic) goes into `app/application.c`.
-The default content works as a *Hello World* example.
-When flashed into Core Module, it toggles LED state with each button press.
+- where U is electricity voltage
+- and I is calculated effective current
 
-## License
+`I = Ip * SQRT(2)/2 * RATIO`
 
-This project is licensed under the [MIT License](https://opensource.org/licenses/MIT/) - see the [LICENSE](LICENSE) file for details.
+- where Ip is measured peak current
+- and RATIO is sensor's induction ratio
 
----
+`Ip = MAX(Um / R)` for 5 periods
 
-Made with &#x2764;&nbsp; by [**HARDWARIO s.r.o.**](https://www.hardwario.com/) in the heart of Europe.
+- where U is measured voltage
+- and R is resistance used to measure currency, placed between pins of sensor
+
+Finally the measured currency and power consumption is written to the LCD display and sent over the radio to computer.

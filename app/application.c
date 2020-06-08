@@ -2,8 +2,8 @@
 
 #define R 340 // 2x680 ohm +-10% in parallel
 #define U 230 // socket voltage DC
-#define RMS 0.707f // coefficiont to get effective current
 #define RATIO 1000 // sensor measuring ratio  
+
 #define VDDA 3.3f   // reference voltage for measuring
 #define ZERO 0.001  // zero voltage
 
@@ -35,7 +35,8 @@ float measure_current(bc_adc_channel_t channel)
     if (voltMax<ZERO)
         voltMax = 0;
 
-    float currentSensor = voltMax * RMS / R;
+    float rms = sqrt(2)/2;
+    float currentSensor = voltMax * rms / R;
     float current = currentSensor * RATIO;
 
     return current;
