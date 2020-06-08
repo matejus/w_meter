@@ -21,6 +21,10 @@ The peak current have to be recalculated to effective current. Then using the se
 `Ip = MAX(Um / R)` for 5 periods
 
 - where U is measured voltage
-- and R is resistance used to measure currency, placed between pins of sensor
+- and R is resistance used to measure currency, placed between pins of sensor. Max available resistance is 3.3V/5mA=660ohm, but use smaller for sure. 
 
 Finally the measured currency and power consumption is written to the LCD display and sent over the radio to computer.
+
+I had used 2 current sensors on L and N wire (named COIL_1 and COIL_2). Max resistance between 
+If you want to use different ADC to measuring change the definitions at the begining of application.c file. You can change measuring period (5 sec by defaut) by modification of MEASURING_PERIOD constant.
+

@@ -9,11 +9,11 @@
 
 #define RADIO_TOPIC "wattmeter"  // subtopic used to radio message 
 
-#define MEASURING_TIME 100
-#define MEASURING_PERIOD 5000
+#define MEASURING_TIME 100       // how long the voltage is measured
+#define MEASURING_PERIOD 5000    // delay between 2 measurements
 
-#define COIL_1 BC_ADC_CHANNEL_A2
-#define COIL_2 BC_ADC_CHANNEL_A3
+#define COIL_1 BC_ADC_CHANNEL_A2  // AD channel measuring voltage on coil 1
+#define COIL_2 BC_ADC_CHANNEL_A3  // AD channel measuring voltage on coil 2
 
 bc_led_t _led;
 bc_button_t _button;
