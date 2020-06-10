@@ -24,6 +24,7 @@ float measure_current(bc_adc_channel_t channel)
     uint16_t adc;
     uint16_t max = 0;
     bc_tick_t start = bc_tick_get();
+
     while (bc_tick_get()<start+MEASURING_TIME)
     {
         bc_adc_get_value(channel, &adc);
@@ -33,13 +34,15 @@ float measure_current(bc_adc_channel_t channel)
 
     float voltMax = (max * VDDA) / 65536.f;
     if (voltMax<ZERO)
-        voltMax = 0;
+        voltMax = 0;        // to eliminate false induced current 
 
     float rms = sqrt(2)/2;
-    float currentSensor = voltMax * rms / R;
-    float current = currentSensor * RATIO;
 
-    return current;
+    float currentSensor = voltMax / R;
+    float current = currentSensor * RATIO;
+    float currentEff = current * rms;
+
+    return currentEff;
 }
 
 
