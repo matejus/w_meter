@@ -123,6 +123,7 @@ void application_task(void)
 {
     float c1, c2;
     float power;
+    bool warning;
 
     bc_led_set_mode(&_led, BC_LED_MODE_ON);
 
@@ -131,15 +132,15 @@ void application_task(void)
 
     power = U * (c1 + c2) / 2;
 
+    warning = abs((c1-c2)*1000)>1;
+
     char msg[100];
     sprintf(msg, "I=%.2fA    P=%.2fW     diff=%.3fmA", c2, power, (c1-c2)*1000);
     bc_log_debug("%s", msg);
 
-    bc_radio_pub_float(RADIO_TOPIC, &power);
-
     bc_led_set_mode(&_led, BC_LED_MODE_OFF);
 
-    lcd_write((c1 + c2) / 2, power, abs((c1-c2)*1000)>1);
+    lcd_write((c1 + c2) / 2, power, warning);
 
     bc_scheduler_plan_current_from_now(MEASURING_PERIOD-2*MEASURING_TIME);
 }
